@@ -169,32 +169,46 @@ namespace Leveling
             foreach (var v in LevelingAdjust.LevelingPoints) {
                 v.PointNum = count++;
             }
+            //foreach (var points in lines) {
+            //    for (int i = 0; i < this.dataGridView1.RowCount; ++i) {
+            //        if (points.StartPoint.PointName == dataGridView1.Rows[i].Cells[1].Value) {
+            //            string? prop = this.dataGridView1.Rows[i].Cells[3].Value.ToString();
+            //            if (prop == "Known")
+            //            {
+            //                points.StartPoint.Nature = LevelingPoint.PointNature.Known;
+            //            }
+            //            else {
+            //                points.StartPoint.Nature = LevelingPoint.PointNature.UnKnown;
+            //            }
+            //        }
+            //    }
+            //    for (int i = 0; i < this.dataGridView1.RowCount; ++i)
+            //    {
+            //        if (points.EndPoint.PointName == dataGridView1.Rows[i].Cells[1].Value)
+            //        {
+            //            string? prop = this.dataGridView1.Rows[i].Cells[3].Value.ToString();
+            //            if (prop == "Known")
+            //            {
+            //                points.EndPoint.Nature = LevelingPoint.PointNature.Known;
+            //            }
+            //            else
+            //            {
+            //                points.EndPoint.Nature = LevelingPoint.PointNature.UnKnown;
+            //            }
+            //        }
+            //    }
+            //}
             foreach (var points in lines) {
-                for (int i = 0; i < this.dataGridView1.RowCount; ++i) {
-                    if (points.StartPoint.PointName == dataGridView1.Rows[i].Cells[1].Value) {
-                        string? prop = this.dataGridView1.Rows[i].Cells[3].Value.ToString();
-                        if (prop == "Known")
-                        {
-                            points.StartPoint.Nature = LevelingPoint.PointNature.Known;
-                        }
-                        else {
-                            points.StartPoint.Nature = LevelingPoint.PointNature.UnKnown;
-                        }
+                foreach (var p in LevelingAdjust.LevelingPoints) {
+                    if (points.StartPoint.PointName == p.PointName) {
+                        points.StartPoint = p;
                     }
                 }
-                for (int i = 0; i < this.dataGridView1.RowCount; ++i)
+                foreach (var p in LevelingAdjust.LevelingPoints)
                 {
-                    if (points.EndPoint.PointName == dataGridView1.Rows[i].Cells[1].Value)
+                    if (points.EndPoint.PointName == p.PointName)
                     {
-                        string? prop = this.dataGridView1.Rows[i].Cells[3].Value.ToString();
-                        if (prop == "Known")
-                        {
-                            points.EndPoint.Nature = LevelingPoint.PointNature.Known;
-                        }
-                        else
-                        {
-                            points.EndPoint.Nature = LevelingPoint.PointNature.UnKnown;
-                        }
+                        points.EndPoint = p;
                     }
                 }
             }
