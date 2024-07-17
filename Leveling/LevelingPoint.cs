@@ -41,5 +41,16 @@ namespace Leveling
         /// 水准点的性质
         /// </summary>
         public PointNature Nature { get; set; }
+
+        // 重写 Equals 方法
+        public override bool Equals(object obj)
+        {
+
+            if (this.PointName == (obj as LevelingPoint).PointName) {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

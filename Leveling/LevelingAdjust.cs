@@ -59,7 +59,7 @@ namespace Leveling
                         neighbor[p2] = p1;
                         s[p2] = s[p1] + s12;
                         diff[p2] = diff[p1] + LevelingLines[k].LeveingHeightDifferent;
-                        unchanged = false;//不能少啊！否则就不在循环第二遍啦。
+                        unchanged = false;
                     }
 
                     if (s[p1] > (s[p2] + s12))
@@ -67,7 +67,7 @@ namespace Leveling
                         neighbor[p1] = p2;
                         s[p1] = s[p2] + s12;
                         diff[p1] = diff[p2] - LevelingLines[k].LeveingHeightDifferent;
-                        unchanged = false;//不能少啊！否则就不在循环第二遍啦。
+                        unchanged = false;
                     }
 
                 }
@@ -83,7 +83,7 @@ namespace Leveling
         /// <summary>
         /// 环闭合差计算
         /// </summary>
-        public static void LoopClosure()
+        public static void  LoopClosure()
         {
 
             string str1 = "\t=========环闭合差计算=============";
