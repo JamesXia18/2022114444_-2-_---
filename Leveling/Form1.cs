@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 
@@ -5,7 +6,8 @@ namespace Leveling
 {
     public partial class Form1 : Form
     {
-
+        //数据库连接字符串
+        string? str;
         public Form1()
         {
             InitializeComponent();
@@ -276,13 +278,163 @@ namespace Leveling
         {
             Form2 form = new Form2();
             form.ShowDialog();
-            string? str;
             if (form.ISOK())
             {
                 str = form.connectStr();
+                SqlConnectionManager scm = new SqlConnectionManager(str);
+                // 执行查询语句
+                using (SqlDataReader reader = scm.ExecuteReader("SELECT * FROM dbo.LevelingPoint"))
+                {
+                    
+                    while (reader.Read())
+                    {
+                        int count = dataGridView3.Rows.Add();
+                        dataGridView3.Rows[count].Cells[0].Value = reader["ID"];
+                        dataGridView3.Rows[count].Cells[1].Value = reader["Name"];
+                        dataGridView3.Rows[count].Cells[2].Value = reader["Evevation"]; ;
+                        dataGridView3.Rows[count].Cells[3].Value = reader["Nature"];
+                        dataGridView3.Rows[count].Cells[4].Value = reader["FileName"];
+                        
+                    }
+                }
+
+                // 执行查询语句
+                using (SqlDataReader reader = scm.ExecuteReader("SELECT * FROM dbo.LevelingLine"))
+                {
+                    
+                    while (reader.Read())
+                    {
+                        int count = dataGridView5.Rows.Add();
+                        dataGridView5.Rows[count].Cells[0].Value = reader["ID"];
+                        dataGridView5.Rows[count].Cells[1].Value = reader["SID"];
+                        dataGridView5.Rows[count].Cells[2].Value = reader["EID"]; ;
+                        dataGridView5.Rows[count].Cells[3].Value = reader["Height"];
+                        dataGridView5.Rows[count].Cells[4].Value = reader["Length"];
+                        count++;
+                    }
+
+                }
             }
-            else {
+            else
+            {
                 MessageBox.Show("请重新登录!");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SqlConnectionManager scm = new SqlConnectionManager(str);
+            // 执行查询语句
+            string? str1 = "select * from" + $" {comboBox1.Text} " + richTextBox3.Text;
+            using (SqlDataReader reader = scm.ExecuteReader(str1))
+            {
+                if (comboBox1.Text == "LevelingPoint")
+                {
+                    try
+                    {
+                        
+                        dataGridView3.Rows.Clear();
+                        while (reader.Read())
+                        {
+                            int count = dataGridView3.Rows.Add();
+                            dataGridView3.Rows[count].Cells[0].Value = reader["ID"];
+                            dataGridView3.Rows[count].Cells[1].Value = reader["Name"];
+                            dataGridView3.Rows[count].Cells[2].Value = reader["Evevation"]; ;
+                            dataGridView3.Rows[count].Cells[3].Value = reader["Nature"];
+                            dataGridView3.Rows[count].Cells[4].Value = reader["FileName"];
+                            count++;
+                        }
+                        MessageBox.Show("查询成功!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("查询失败!");
+                    }
+                }
+                else if (comboBox1.Text == "LevelingLine")
+                {
+                    
+                    dataGridView5.Rows.Clear();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            int count = dataGridView5.Rows.Add();
+                            dataGridView5.Rows[count].Cells[0].Value = reader["ID"];
+                            dataGridView5.Rows[count].Cells[1].Value = reader["SID"];
+                            dataGridView5.Rows[count].Cells[2].Value = reader["EID"]; ;
+                            dataGridView5.Rows[count].Cells[3].Value = reader["Height"];
+                            dataGridView5.Rows[count].Cells[4].Value = reader["Length"];
+                            count++;
+                        }
+                        MessageBox.Show("查询成功!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("查询失败!");
+                    }
+                }
+            }
+        }
+        private int GetSelectedRowIndex(DataGridView dgv)
+        {
+            if (dgv.Rows.Count == 0)
+            {
+                return 0;
+            }
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Selected)
+                {
+                    return row.Index;
+                }
+            }
+            return 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int index = 0;
+            SqlConnectionManager scm = new SqlConnectionManager(str);
+            string str2 = "";
+            if (comboBox1.Text == "LevelingPoint")
+            {
+                index = GetSelectedRowIndex(dataGridView3);
+                str2 += "\'"+dataGridView3.Rows[index].Cells[0].Value+"\',";
+                str2 += "\'"+dataGridView3.Rows[index].Cells[1].Value+"\',";
+                str2 += dataGridView3.Rows[index].Cells[2].Value +",";
+                str2 += "\'"+dataGridView3.Rows[index].Cells[3].Value +"\',";
+                str2 += "\'"+dataGridView3.Rows[index].Cells[4].Value.ToString()+"\'";
+            }
+            else if (comboBox1.Text == "LevelingLine") {
+                index = GetSelectedRowIndex(dataGridView5);
+                str2 += "\'"+dataGridView5.Rows[index].Cells[0].Value + "\',";
+                str2 += "\'"+dataGridView5.Rows[index].Cells[1].Value + "\',";
+                str2 += "\'"+dataGridView5.Rows[index].Cells[2].Value + "\',";
+                str2 += dataGridView5.Rows[index].Cells[3].Value + ",";
+                str2 += dataGridView5.Rows[index].Cells[4].Value.ToString();
+            }
+            try
+            {
+
+                scm.ExecuteNonQuery($"Insert into {comboBox1.Text} values ({str2})");
+                MessageBox.Show("添加成功!");
+            }
+            catch (Exception ex) {
+                MessageBox.Show("添加失败!");
+            } 
+        }
+
+        
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "LevelingPoint")
+            {
+                dataGridView3.Rows.Add();
+            }
+            if (comboBox1.Text == "LevelingLine") {
+                dataGridView5.Rows.Add();
             }
         }
     }

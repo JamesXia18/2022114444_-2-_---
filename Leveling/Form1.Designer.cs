@@ -61,10 +61,28 @@
             tabPage4 = new TabPage();
             richTextBox2 = new RichTextBox();
             tabPage5 = new TabPage();
-            dataGridView3 = new DataGridView();
+            label4 = new Label();
+            button4 = new Button();
+            button3 = new Button();
+            button2 = new Button();
+            dataGridView5 = new DataGridView();
+            Columna15 = new DataGridViewTextBoxColumn();
+            Column15 = new DataGridViewTextBoxColumn();
+            Column16 = new DataGridViewTextBoxColumn();
+            Column17 = new DataGridViewTextBoxColumn();
+            Column18 = new DataGridViewTextBoxColumn();
+            button1 = new Button();
+            label3 = new Label();
             label1 = new Label();
-            label2 = new Label();
-            dataGridView4 = new DataGridView();
+            richTextBox3 = new RichTextBox();
+            comboBox1 = new ComboBox();
+            dataGridView3 = new DataGridView();
+            Column10 = new DataGridViewTextBoxColumn();
+            Column11 = new DataGridViewTextBoxColumn();
+            Column12 = new DataGridViewTextBoxColumn();
+            Column13 = new DataGridViewTextBoxColumn();
+            Column14 = new DataGridViewTextBoxColumn();
+            button5 = new Button();
             menuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -74,8 +92,8 @@
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -140,7 +158,7 @@
             // 
             平差报告ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 简易平差报告ToolStripMenuItem, 严密平差报告ToolStripMenuItem });
             平差报告ToolStripMenuItem.Name = "平差报告ToolStripMenuItem";
-            平差报告ToolStripMenuItem.Size = new Size(224, 26);
+            平差报告ToolStripMenuItem.Size = new Size(152, 26);
             平差报告ToolStripMenuItem.Text = "平差报告";
             // 
             // 简易平差报告ToolStripMenuItem
@@ -160,13 +178,13 @@
             // 
             导入数据库ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 数据库登录ToolStripMenuItem });
             导入数据库ToolStripMenuItem.Name = "导入数据库ToolStripMenuItem";
-            导入数据库ToolStripMenuItem.Size = new Size(224, 26);
+            导入数据库ToolStripMenuItem.Size = new Size(152, 26);
             导入数据库ToolStripMenuItem.Text = "数据库";
             // 
             // 数据库登录ToolStripMenuItem
             // 
             数据库登录ToolStripMenuItem.Name = "数据库登录ToolStripMenuItem";
-            数据库登录ToolStripMenuItem.Size = new Size(224, 26);
+            数据库登录ToolStripMenuItem.Size = new Size(167, 26);
             数据库登录ToolStripMenuItem.Text = "数据库登录";
             数据库登录ToolStripMenuItem.Click += 数据库登录ToolStripMenuItem_Click;
             // 
@@ -348,9 +366,17 @@
             // 
             // tabPage5
             // 
-            tabPage5.Controls.Add(dataGridView4);
-            tabPage5.Controls.Add(label2);
+            tabPage5.Controls.Add(button5);
+            tabPage5.Controls.Add(label4);
+            tabPage5.Controls.Add(button4);
+            tabPage5.Controls.Add(button3);
+            tabPage5.Controls.Add(button2);
+            tabPage5.Controls.Add(dataGridView5);
+            tabPage5.Controls.Add(button1);
+            tabPage5.Controls.Add(label3);
             tabPage5.Controls.Add(label1);
+            tabPage5.Controls.Add(richTextBox3);
+            tabPage5.Controls.Add(comboBox1);
             tabPage5.Controls.Add(dataGridView3);
             tabPage5.Location = new Point(4, 4);
             tabPage5.Name = "tabPage5";
@@ -359,43 +385,190 @@
             tabPage5.Text = "数据库管理";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // dataGridView3
+            // label4
             // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(8, 33);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.RowTemplate.Height = 29;
-            dataGridView3.Size = new Size(310, 327);
-            dataGridView3.TabIndex = 0;
+            label4.AutoSize = true;
+            label4.FlatStyle = FlatStyle.System;
+            label4.Location = new Point(493, 146);
+            label4.Name = "label4";
+            label4.Size = new Size(106, 20);
+            label4.TabIndex = 10;
+            label4.Text = "select * from ";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(700, 89);
+            button4.Name = "button4";
+            button4.Size = new Size(89, 54);
+            button4.TabIndex = 9;
+            button4.Text = "CHG";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(585, 89);
+            button3.Name = "button3";
+            button3.Size = new Size(98, 54);
+            button3.TabIndex = 8;
+            button3.Text = "DEL";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(481, 89);
+            button2.Name = "button2";
+            button2.Size = new Size(89, 54);
+            button2.TabIndex = 7;
+            button2.Text = "ADD";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // dataGridView5
+            // 
+            dataGridView5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView5.Columns.AddRange(new DataGridViewColumn[] { Columna15, Column15, Column16, Column17, Column18 });
+            dataGridView5.Location = new Point(8, 208);
+            dataGridView5.Name = "dataGridView5";
+            dataGridView5.RowHeadersWidth = 51;
+            dataGridView5.RowTemplate.Height = 29;
+            dataGridView5.Size = new Size(429, 152);
+            dataGridView5.TabIndex = 6;
+            // 
+            // Columna15
+            // 
+            Columna15.HeaderText = "ID";
+            Columna15.MinimumWidth = 6;
+            Columna15.Name = "Columna15";
+            Columna15.Width = 125;
+            // 
+            // Column15
+            // 
+            Column15.HeaderText = "起点";
+            Column15.MinimumWidth = 6;
+            Column15.Name = "Column15";
+            Column15.Width = 125;
+            // 
+            // Column16
+            // 
+            Column16.HeaderText = "终点";
+            Column16.MinimumWidth = 6;
+            Column16.Name = "Column16";
+            Column16.Width = 125;
+            // 
+            // Column17
+            // 
+            Column17.HeaderText = "高差";
+            Column17.MinimumWidth = 6;
+            Column17.Name = "Column17";
+            Column17.Width = 125;
+            // 
+            // Column18
+            // 
+            Column18.HeaderText = "距离";
+            Column18.MinimumWidth = 6;
+            Column18.Name = "Column18";
+            Column18.Width = 125;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(493, 267);
+            button1.Name = "button1";
+            button1.Size = new Size(207, 58);
+            button1.TabIndex = 5;
+            button1.Text = "执行查询";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(182, 190);
+            label3.Name = "label3";
+            label3.Size = new Size(100, 20);
+            label3.TabIndex = 4;
+            label3.Text = "LevelingLine";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(130, 10);
+            label1.Location = new Point(182, 7);
             label1.Name = "label1";
-            label1.Size = new Size(53, 20);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
+            label1.Size = new Size(108, 20);
+            label1.TabIndex = 4;
+            label1.Text = "LevelingPoint";
             // 
-            // label2
+            // richTextBox3
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(584, 10);
-            label2.Name = "label2";
-            label2.Size = new Size(53, 20);
-            label2.TabIndex = 2;
-            label2.Text = "label2";
+            richTextBox3.Location = new Point(493, 169);
+            richTextBox3.Name = "richTextBox3";
+            richTextBox3.Size = new Size(264, 73);
+            richTextBox3.TabIndex = 3;
+            richTextBox3.Text = "";
             // 
-            // dataGridView4
+            // comboBox1
             // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Location = new Point(477, 33);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.RowHeadersWidth = 51;
-            dataGridView4.RowTemplate.Height = 29;
-            dataGridView4.Size = new Size(312, 327);
-            dataGridView4.TabIndex = 3;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "LevelingPoint", "LevelingLine" });
+            comboBox1.Location = new Point(542, 33);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(158, 28);
+            comboBox1.TabIndex = 2;
+            // 
+            // dataGridView3
+            // 
+            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView3.Columns.AddRange(new DataGridViewColumn[] { Column10, Column11, Column12, Column13, Column14 });
+            dataGridView3.Location = new Point(8, 33);
+            dataGridView3.Name = "dataGridView3";
+            dataGridView3.RowHeadersWidth = 51;
+            dataGridView3.RowTemplate.Height = 29;
+            dataGridView3.Size = new Size(429, 154);
+            dataGridView3.TabIndex = 0;
+            // 
+            // Column10
+            // 
+            Column10.HeaderText = "ID";
+            Column10.MinimumWidth = 6;
+            Column10.Name = "Column10";
+            Column10.Width = 125;
+            // 
+            // Column11
+            // 
+            Column11.HeaderText = "点名";
+            Column11.MinimumWidth = 6;
+            Column11.Name = "Column11";
+            Column11.Width = 125;
+            // 
+            // Column12
+            // 
+            Column12.HeaderText = "高程(m)";
+            Column12.MinimumWidth = 6;
+            Column12.Name = "Column12";
+            Column12.Width = 125;
+            // 
+            // Column13
+            // 
+            Column13.HeaderText = "属性";
+            Column13.MinimumWidth = 6;
+            Column13.Name = "Column13";
+            Column13.Width = 125;
+            // 
+            // Column14
+            // 
+            Column14.HeaderText = "文件来源";
+            Column14.MinimumWidth = 6;
+            Column14.Name = "Column14";
+            Column14.Width = 125;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(717, 267);
+            button5.Name = "button5";
+            button5.Size = new Size(62, 58);
+            button5.TabIndex = 11;
+            button5.Text = "添加行";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // Form1
             // 
@@ -419,8 +592,8 @@
             tabPage4.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView5).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -462,7 +635,27 @@
         private ToolStripMenuItem 数据库登录ToolStripMenuItem;
         private DataGridView dataGridView4;
         private Label label2;
-        private Label label1;
         private DataGridView dataGridView3;
+        private RichTextBox richTextBox3;
+        private ComboBox comboBox1;
+        private Button button1;
+        private Label label1;
+        private DataGridView dataGridView5;
+        private Label label3;
+        private DataGridViewTextBoxColumn Columna15;
+        private DataGridViewTextBoxColumn Column15;
+        private DataGridViewTextBoxColumn Column16;
+        private DataGridViewTextBoxColumn Column17;
+        private DataGridViewTextBoxColumn Column18;
+        private DataGridViewTextBoxColumn Column10;
+        private DataGridViewTextBoxColumn Column11;
+        private DataGridViewTextBoxColumn Column12;
+        private DataGridViewTextBoxColumn Column13;
+        private DataGridViewTextBoxColumn Column14;
+        private Button button4;
+        private Button button3;
+        private Button button2;
+        private Label label4;
+        private Button button5;
     }
 }
