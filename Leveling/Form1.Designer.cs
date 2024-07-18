@@ -82,7 +82,6 @@
             Column12 = new DataGridViewTextBoxColumn();
             Column13 = new DataGridViewTextBoxColumn();
             Column14 = new DataGridViewTextBoxColumn();
-            button5 = new Button();
             menuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -102,7 +101,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem, 高差闭合差计算ToolStripMenuItem, 数据库ToolStripMenuItem, 帮助ToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(809, 28);
+            menuStrip1.Padding = new Padding(5, 2, 0, 2);
+            menuStrip1.Size = new Size(629, 25);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -110,13 +110,13 @@
             // 
             文件ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 打开水准观测文件ToolStripMenuItem });
             文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            文件ToolStripMenuItem.Size = new Size(53, 24);
+            文件ToolStripMenuItem.Size = new Size(44, 21);
             文件ToolStripMenuItem.Text = "文件";
             // 
             // 打开水准观测文件ToolStripMenuItem
             // 
             打开水准观测文件ToolStripMenuItem.Name = "打开水准观测文件ToolStripMenuItem";
-            打开水准观测文件ToolStripMenuItem.Size = new Size(212, 26);
+            打开水准观测文件ToolStripMenuItem.Size = new Size(172, 22);
             打开水准观测文件ToolStripMenuItem.Text = "打开水准观测文件";
             打开水准观测文件ToolStripMenuItem.Click += 打开水准观测文件ToolStripMenuItem_Click;
             // 
@@ -124,74 +124,76 @@
             // 
             高差闭合差计算ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 闭合差计算ToolStripMenuItem, 近似点高程计算ToolStripMenuItem, 严密平差解算ToolStripMenuItem });
             高差闭合差计算ToolStripMenuItem.Name = "高差闭合差计算ToolStripMenuItem";
-            高差闭合差计算ToolStripMenuItem.Size = new Size(53, 24);
+            高差闭合差计算ToolStripMenuItem.Size = new Size(44, 21);
             高差闭合差计算ToolStripMenuItem.Text = "计算";
             // 
             // 闭合差计算ToolStripMenuItem
             // 
             闭合差计算ToolStripMenuItem.Name = "闭合差计算ToolStripMenuItem";
-            闭合差计算ToolStripMenuItem.Size = new Size(197, 26);
+            闭合差计算ToolStripMenuItem.Size = new Size(180, 22);
             闭合差计算ToolStripMenuItem.Text = "闭合差计算";
             闭合差计算ToolStripMenuItem.Click += 闭合差计算ToolStripMenuItem_Click;
             // 
             // 近似点高程计算ToolStripMenuItem
             // 
             近似点高程计算ToolStripMenuItem.Name = "近似点高程计算ToolStripMenuItem";
-            近似点高程计算ToolStripMenuItem.Size = new Size(197, 26);
+            近似点高程计算ToolStripMenuItem.Size = new Size(180, 22);
             近似点高程计算ToolStripMenuItem.Text = "近似点高程计算";
             近似点高程计算ToolStripMenuItem.Click += 近似点高程计算ToolStripMenuItem_Click;
             // 
             // 严密平差解算ToolStripMenuItem
             // 
             严密平差解算ToolStripMenuItem.Name = "严密平差解算ToolStripMenuItem";
-            严密平差解算ToolStripMenuItem.Size = new Size(197, 26);
+            严密平差解算ToolStripMenuItem.Size = new Size(180, 22);
             严密平差解算ToolStripMenuItem.Text = "严密平差解算";
+            严密平差解算ToolStripMenuItem.Click += 严密平差解算ToolStripMenuItem_Click;
             // 
             // 数据库ToolStripMenuItem
             // 
             数据库ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 平差报告ToolStripMenuItem, 导入数据库ToolStripMenuItem });
             数据库ToolStripMenuItem.Name = "数据库ToolStripMenuItem";
-            数据库ToolStripMenuItem.Size = new Size(53, 24);
+            数据库ToolStripMenuItem.Size = new Size(44, 21);
             数据库ToolStripMenuItem.Text = "成果";
             // 
             // 平差报告ToolStripMenuItem
             // 
             平差报告ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 简易平差报告ToolStripMenuItem, 严密平差报告ToolStripMenuItem });
             平差报告ToolStripMenuItem.Name = "平差报告ToolStripMenuItem";
-            平差报告ToolStripMenuItem.Size = new Size(152, 26);
+            平差报告ToolStripMenuItem.Size = new Size(180, 22);
             平差报告ToolStripMenuItem.Text = "平差报告";
             // 
             // 简易平差报告ToolStripMenuItem
             // 
             简易平差报告ToolStripMenuItem.Name = "简易平差报告ToolStripMenuItem";
-            简易平差报告ToolStripMenuItem.Size = new Size(182, 26);
+            简易平差报告ToolStripMenuItem.Size = new Size(180, 22);
             简易平差报告ToolStripMenuItem.Text = "简易平差报告";
             简易平差报告ToolStripMenuItem.Click += 简易平差报告ToolStripMenuItem_Click;
             // 
             // 严密平差报告ToolStripMenuItem
             // 
             严密平差报告ToolStripMenuItem.Name = "严密平差报告ToolStripMenuItem";
-            严密平差报告ToolStripMenuItem.Size = new Size(182, 26);
+            严密平差报告ToolStripMenuItem.Size = new Size(180, 22);
             严密平差报告ToolStripMenuItem.Text = "严密平差报告";
+            严密平差报告ToolStripMenuItem.Click += 严密平差报告ToolStripMenuItem_Click;
             // 
             // 导入数据库ToolStripMenuItem
             // 
             导入数据库ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 数据库登录ToolStripMenuItem });
             导入数据库ToolStripMenuItem.Name = "导入数据库ToolStripMenuItem";
-            导入数据库ToolStripMenuItem.Size = new Size(152, 26);
+            导入数据库ToolStripMenuItem.Size = new Size(180, 22);
             导入数据库ToolStripMenuItem.Text = "数据库";
             // 
             // 数据库登录ToolStripMenuItem
             // 
             数据库登录ToolStripMenuItem.Name = "数据库登录ToolStripMenuItem";
-            数据库登录ToolStripMenuItem.Size = new Size(167, 26);
+            数据库登录ToolStripMenuItem.Size = new Size(180, 22);
             数据库登录ToolStripMenuItem.Text = "数据库登录";
             数据库登录ToolStripMenuItem.Click += 数据库登录ToolStripMenuItem_Click;
             // 
             // 帮助ToolStripMenuItem
             // 
             帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            帮助ToolStripMenuItem.Size = new Size(53, 24);
+            帮助ToolStripMenuItem.Size = new Size(44, 21);
             帮助ToolStripMenuItem.Text = "帮助";
             // 
             // tabControl1
@@ -203,21 +205,21 @@
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
             tabControl1.Controls.Add(tabPage5);
-            tabControl1.Location = new Point(0, 27);
-            tabControl1.Margin = new Padding(3, 4, 3, 4);
+            tabControl1.Location = new Point(0, 23);
+            tabControl1.Margin = new Padding(2, 3, 2, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(800, 396);
+            tabControl1.Size = new Size(622, 337);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             tabPage1.Controls.Add(dataGridView1);
             tabPage1.Location = new Point(4, 4);
-            tabPage1.Margin = new Padding(3, 4, 3, 4);
+            tabPage1.Margin = new Padding(2, 3, 2, 3);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 4, 3, 4);
-            tabPage1.Size = new Size(792, 363);
+            tabPage1.Padding = new Padding(2, 3, 2, 3);
+            tabPage1.Size = new Size(614, 307);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "水准点高程";
             tabPage1.UseVisualStyleBackColor = true;
@@ -227,12 +229,12 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column9 });
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 4);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
+            dataGridView1.Location = new Point(2, 3);
+            dataGridView1.Margin = new Padding(2, 3, 2, 3);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(786, 355);
+            dataGridView1.Size = new Size(610, 301);
             dataGridView1.TabIndex = 1;
             // 
             // Column1
@@ -267,10 +269,10 @@
             // 
             tabPage2.Controls.Add(dataGridView2);
             tabPage2.Location = new Point(4, 4);
-            tabPage2.Margin = new Padding(3, 4, 3, 4);
+            tabPage2.Margin = new Padding(2, 3, 2, 3);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 4, 3, 4);
-            tabPage2.Size = new Size(792, 363);
+            tabPage2.Padding = new Padding(2, 3, 2, 3);
+            tabPage2.Size = new Size(614, 307);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "水准线路";
             tabPage2.UseVisualStyleBackColor = true;
@@ -280,12 +282,12 @@
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Column4, Column5, Column6, Column7, Column8 });
             dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 4);
-            dataGridView2.Margin = new Padding(3, 4, 3, 4);
+            dataGridView2.Location = new Point(2, 3);
+            dataGridView2.Margin = new Padding(2, 3, 2, 3);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
             dataGridView2.RowTemplate.Height = 29;
-            dataGridView2.Size = new Size(786, 355);
+            dataGridView2.Size = new Size(610, 301);
             dataGridView2.TabIndex = 0;
             // 
             // Column4
@@ -327,9 +329,9 @@
             // 
             tabPage3.Controls.Add(richTextBox1);
             tabPage3.Location = new Point(4, 4);
-            tabPage3.Margin = new Padding(3, 4, 3, 4);
+            tabPage3.Margin = new Padding(2, 3, 2, 3);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(792, 363);
+            tabPage3.Size = new Size(614, 307);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "闭合差计算";
             tabPage3.UseVisualStyleBackColor = true;
@@ -338,9 +340,8 @@
             // 
             richTextBox1.Dock = DockStyle.Fill;
             richTextBox1.Location = new Point(0, 0);
-            richTextBox1.Margin = new Padding(4);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(792, 363);
+            richTextBox1.Size = new Size(614, 307);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
@@ -348,9 +349,9 @@
             // 
             tabPage4.Controls.Add(richTextBox2);
             tabPage4.Location = new Point(4, 4);
-            tabPage4.Margin = new Padding(3, 4, 3, 4);
+            tabPage4.Margin = new Padding(2, 3, 2, 3);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(792, 363);
+            tabPage4.Size = new Size(614, 307);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "平差报告";
             tabPage4.UseVisualStyleBackColor = true;
@@ -359,14 +360,14 @@
             // 
             richTextBox2.Dock = DockStyle.Fill;
             richTextBox2.Location = new Point(0, 0);
+            richTextBox2.Margin = new Padding(2, 3, 2, 3);
             richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(792, 363);
+            richTextBox2.Size = new Size(614, 307);
             richTextBox2.TabIndex = 0;
             richTextBox2.Text = "";
             // 
             // tabPage5
             // 
-            tabPage5.Controls.Add(button5);
             tabPage5.Controls.Add(label4);
             tabPage5.Controls.Add(button4);
             tabPage5.Controls.Add(button3);
@@ -379,8 +380,9 @@
             tabPage5.Controls.Add(comboBox1);
             tabPage5.Controls.Add(dataGridView3);
             tabPage5.Location = new Point(4, 4);
+            tabPage5.Margin = new Padding(2, 3, 2, 3);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(792, 363);
+            tabPage5.Size = new Size(614, 307);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "数据库管理";
             tabPage5.UseVisualStyleBackColor = true;
@@ -389,35 +391,41 @@
             // 
             label4.AutoSize = true;
             label4.FlatStyle = FlatStyle.System;
-            label4.Location = new Point(493, 146);
+            label4.Location = new Point(383, 124);
+            label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(106, 20);
+            label4.Size = new Size(86, 17);
             label4.TabIndex = 10;
             label4.Text = "select * from ";
             // 
             // button4
             // 
-            button4.Location = new Point(700, 89);
+            button4.Location = new Point(544, 76);
+            button4.Margin = new Padding(2, 3, 2, 3);
             button4.Name = "button4";
-            button4.Size = new Size(89, 54);
+            button4.Size = new Size(69, 46);
             button4.TabIndex = 9;
             button4.Text = "CHG";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(585, 89);
+            button3.Location = new Point(455, 76);
+            button3.Margin = new Padding(2, 3, 2, 3);
             button3.Name = "button3";
-            button3.Size = new Size(98, 54);
+            button3.Size = new Size(76, 46);
             button3.TabIndex = 8;
             button3.Text = "DEL";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(481, 89);
+            button2.Location = new Point(374, 76);
+            button2.Margin = new Padding(2, 3, 2, 3);
             button2.Name = "button2";
-            button2.Size = new Size(89, 54);
+            button2.Size = new Size(69, 46);
             button2.TabIndex = 7;
             button2.Text = "ADD";
             button2.UseVisualStyleBackColor = true;
@@ -427,11 +435,12 @@
             // 
             dataGridView5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView5.Columns.AddRange(new DataGridViewColumn[] { Columna15, Column15, Column16, Column17, Column18 });
-            dataGridView5.Location = new Point(8, 208);
+            dataGridView5.Location = new Point(6, 177);
+            dataGridView5.Margin = new Padding(2, 3, 2, 3);
             dataGridView5.Name = "dataGridView5";
             dataGridView5.RowHeadersWidth = 51;
             dataGridView5.RowTemplate.Height = 29;
-            dataGridView5.Size = new Size(429, 152);
+            dataGridView5.Size = new Size(334, 129);
             dataGridView5.TabIndex = 6;
             // 
             // Columna15
@@ -471,9 +480,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(493, 267);
+            button1.Location = new Point(383, 227);
+            button1.Margin = new Padding(2, 3, 2, 3);
             button1.Name = "button1";
-            button1.Size = new Size(207, 58);
+            button1.Size = new Size(148, 49);
             button1.TabIndex = 5;
             button1.Text = "执行查询";
             button1.UseVisualStyleBackColor = true;
@@ -482,26 +492,29 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(182, 190);
+            label3.Location = new Point(142, 162);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(100, 20);
+            label3.Size = new Size(78, 17);
             label3.TabIndex = 4;
             label3.Text = "LevelingLine";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(182, 7);
+            label1.Location = new Point(142, 6);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(108, 20);
+            label1.Size = new Size(84, 17);
             label1.TabIndex = 4;
             label1.Text = "LevelingPoint";
             // 
             // richTextBox3
             // 
-            richTextBox3.Location = new Point(493, 169);
+            richTextBox3.Location = new Point(383, 144);
+            richTextBox3.Margin = new Padding(2, 3, 2, 3);
             richTextBox3.Name = "richTextBox3";
-            richTextBox3.Size = new Size(264, 73);
+            richTextBox3.Size = new Size(206, 63);
             richTextBox3.TabIndex = 3;
             richTextBox3.Text = "";
             // 
@@ -509,20 +522,22 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "LevelingPoint", "LevelingLine" });
-            comboBox1.Location = new Point(542, 33);
+            comboBox1.Location = new Point(422, 28);
+            comboBox1.Margin = new Padding(2, 3, 2, 3);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(158, 28);
+            comboBox1.Size = new Size(124, 25);
             comboBox1.TabIndex = 2;
             // 
             // dataGridView3
             // 
             dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView3.Columns.AddRange(new DataGridViewColumn[] { Column10, Column11, Column12, Column13, Column14 });
-            dataGridView3.Location = new Point(8, 33);
+            dataGridView3.Location = new Point(6, 28);
+            dataGridView3.Margin = new Padding(2, 3, 2, 3);
             dataGridView3.Name = "dataGridView3";
             dataGridView3.RowHeadersWidth = 51;
             dataGridView3.RowTemplate.Height = 29;
-            dataGridView3.Size = new Size(429, 154);
+            dataGridView3.Size = new Size(334, 131);
             dataGridView3.TabIndex = 0;
             // 
             // Column10
@@ -560,25 +575,15 @@
             Column14.Name = "Column14";
             Column14.Width = 125;
             // 
-            // button5
-            // 
-            button5.Location = new Point(717, 267);
-            button5.Name = "button5";
-            button5.Size = new Size(62, 58);
-            button5.TabIndex = 11;
-            button5.Text = "添加行";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
-            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(809, 421);
+            ClientSize = new Size(629, 358);
             Controls.Add(tabControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(2, 3, 2, 3);
             Name = "Form1";
             Text = "水准网平差程序设计";
             menuStrip1.ResumeLayout(false);
@@ -656,6 +661,5 @@
         private Button button3;
         private Button button2;
         private Label label4;
-        private Button button5;
     }
 }

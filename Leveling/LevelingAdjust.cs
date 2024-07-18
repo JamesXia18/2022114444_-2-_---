@@ -17,6 +17,7 @@ namespace Leveling
         public static double Alpha;//验前单位权中误差。
         public static int MLnumber;//高差观测值个数。
         public static int UnknowPointNum;//已经计算出的未知点高程的点数。
+        public static List<string> StrAdjust = new List<string>();//严密平差报告文件字符信息
 
         /// <summary>
         /// 搜索最短路径
@@ -274,10 +275,5 @@ namespace Leveling
             }
 
         }
-
-
-
     }
-
-
 }

@@ -1,6 +1,8 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Leveling
 {
@@ -285,7 +287,7 @@ namespace Leveling
                 // 执行查询语句
                 using (SqlDataReader reader = scm.ExecuteReader("SELECT * FROM dbo.LevelingPoint"))
                 {
-                    
+
                     while (reader.Read())
                     {
                         int count = dataGridView3.Rows.Add();
@@ -294,14 +296,14 @@ namespace Leveling
                         dataGridView3.Rows[count].Cells[2].Value = reader["Evevation"]; ;
                         dataGridView3.Rows[count].Cells[3].Value = reader["Nature"];
                         dataGridView3.Rows[count].Cells[4].Value = reader["FileName"];
-                        
+
                     }
                 }
 
                 // 执行查询语句
                 using (SqlDataReader reader = scm.ExecuteReader("SELECT * FROM dbo.LevelingLine"))
                 {
-                    
+
                     while (reader.Read())
                     {
                         int count = dataGridView5.Rows.Add();
@@ -332,7 +334,7 @@ namespace Leveling
                 {
                     try
                     {
-                        
+
                         dataGridView3.Rows.Clear();
                         while (reader.Read())
                         {
@@ -353,7 +355,7 @@ namespace Leveling
                 }
                 else if (comboBox1.Text == "LevelingLine")
                 {
-                    
+
                     dataGridView5.Rows.Clear();
                     try
                     {
@@ -400,17 +402,18 @@ namespace Leveling
             if (comboBox1.Text == "LevelingPoint")
             {
                 index = GetSelectedRowIndex(dataGridView3);
-                str2 += "\'"+dataGridView3.Rows[index].Cells[0].Value+"\',";
-                str2 += "\'"+dataGridView3.Rows[index].Cells[1].Value+"\',";
-                str2 += dataGridView3.Rows[index].Cells[2].Value +",";
-                str2 += "\'"+dataGridView3.Rows[index].Cells[3].Value +"\',";
-                str2 += "\'"+dataGridView3.Rows[index].Cells[4].Value.ToString()+"\'";
+                str2 += "\'" + dataGridView3.Rows[index].Cells[0].Value + "\',";
+                str2 += "\'" + dataGridView3.Rows[index].Cells[1].Value + "\',";
+                str2 += dataGridView3.Rows[index].Cells[2].Value + ",";
+                str2 += "\'" + dataGridView3.Rows[index].Cells[3].Value + "\',";
+                str2 += "\'" + dataGridView3.Rows[index].Cells[4].Value.ToString() + "\'";
             }
-            else if (comboBox1.Text == "LevelingLine") {
+            else if (comboBox1.Text == "LevelingLine")
+            {
                 index = GetSelectedRowIndex(dataGridView5);
-                str2 += "\'"+dataGridView5.Rows[index].Cells[0].Value + "\',";
-                str2 += "\'"+dataGridView5.Rows[index].Cells[1].Value + "\',";
-                str2 += "\'"+dataGridView5.Rows[index].Cells[2].Value + "\',";
+                str2 += "\'" + dataGridView5.Rows[index].Cells[0].Value + "\',";
+                str2 += "\'" + dataGridView5.Rows[index].Cells[1].Value + "\',";
+                str2 += "\'" + dataGridView5.Rows[index].Cells[2].Value + "\',";
                 str2 += dataGridView5.Rows[index].Cells[3].Value + ",";
                 str2 += dataGridView5.Rows[index].Cells[4].Value.ToString();
             }
@@ -420,12 +423,13 @@ namespace Leveling
                 scm.ExecuteNonQuery($"Insert into {comboBox1.Text} values ({str2})");
                 MessageBox.Show("添加成功!");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show("添加失败!");
-            } 
+            }
         }
 
-        
+
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -433,8 +437,174 @@ namespace Leveling
             {
                 dataGridView3.Rows.Add();
             }
-            if (comboBox1.Text == "LevelingLine") {
+            if (comboBox1.Text == "LevelingLine")
+            {
                 dataGridView5.Rows.Add();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int index = 0;
+            SqlConnectionManager scm = new SqlConnectionManager(str);
+            string str2 = "";
+            if (comboBox1.Text == "LevelingPoint")
+            {
+                index = GetSelectedRowIndex(dataGridView3);
+                str2 = dataGridView3.Rows[index].Cells[0].Value.ToString();
+            }
+            else if (comboBox1.Text == "LevelingLine")
+            {
+                index = GetSelectedRowIndex(dataGridView5);
+                str2 = dataGridView5.Rows[index].Cells[0].Value.ToString();
+            }
+            try
+            {
+                MessageBox.Show("确认删除?");
+                scm.ExecuteNonQuery($"Delete from {comboBox1.Text} where ID = \'{str2}\'");
+                MessageBox.Show("删除成功!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("删除失败!");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int index = 0;
+            SqlConnectionManager scm = new SqlConnectionManager(str);
+            string str2 = "";
+            if (comboBox1.Text == "LevelingPoint")
+            {
+                index = GetSelectedRowIndex(dataGridView3);
+                str2 = dataGridView3.Rows[index].Cells[0].Value.ToString();
+                string str3 = dataGridView3.Rows[index].Cells[1].Value.ToString();
+                string str4 = dataGridView3.Rows[index].Cells[2].Value.ToString();
+                string str5 = dataGridView3.Rows[index].Cells[3].Value.ToString();
+                string str6 = dataGridView3.Rows[index].Cells[4].Value.ToString();
+                MessageBox.Show("确认更改?");
+                try
+                {
+                    scm.ExecuteNonQuery($"update {comboBox1.Text} set Name = " +
+                        $"\'{str3}\', Evevation = {str4},Nature = \'{str5}\',FileName = \'{str6}\'  where ID = \'{str2}\'");
+                    MessageBox.Show("更改成功!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("更改失败!");
+                }
+            }
+            else if (comboBox1.Text == "LevelingLine")
+            {
+                index = GetSelectedRowIndex(dataGridView5);
+                str2 = dataGridView5.Rows[index].Cells[0].Value.ToString();
+                string str3 = dataGridView5.Rows[index].Cells[1].Value.ToString();
+                string str4 = dataGridView5.Rows[index].Cells[2].Value.ToString();
+                string str5 = dataGridView5.Rows[index].Cells[3].Value.ToString();
+                string str6 = dataGridView5.Rows[index].Cells[4].Value.ToString();
+                MessageBox.Show("确认更改?");
+                try
+                {
+                    scm.ExecuteNonQuery($"update {comboBox1.Text} set SID = " +
+                    $"\'{str3}\', EID = \'{str4}\',Height = {str5},Length = {str6}  where ID = \'{str2}\'");
+                    MessageBox.Show("更改成功!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("更改失败!");
+                }
+            }
+        }
+
+        private void 严密平差解算ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //读取表格中观测文件
+            int n = LevelingAdjust.MPnumber;//总点数
+            int N = LevelingAdjust.MLnumber;//观测方程总数
+            int t = LevelingAdjust.MPnumber - LevelingAdjust.MKownPnumber;
+            //V = BX - L
+            var B = DenseMatrix.Create(N, t, 0.0);
+            var L = DenseMatrix.Create(N, 1, 0.0);
+            var P = DenseMatrix.Create(N, N, 0.0);
+            for (int i = 0; i < N; ++i)
+            {
+                LevelingLine levelingLine = LevelingAdjust.LevelingLines[i];
+                P[i, i] = 10 / levelingLine.LeveingRoadLength;
+                L[i, 0] = levelingLine.LeveingHeightDifferent + levelingLine.StartPoint.Height - levelingLine.EndPoint.Height;
+                if (levelingLine.StartPoint.UKnownPointNum != -1)
+                {
+                    B[i, levelingLine.StartPoint.UKnownPointNum] = -1;
+                }
+                if (levelingLine.EndPoint.UKnownPointNum != -1)
+                {
+                    B[i, levelingLine.EndPoint.UKnownPointNum] = 1;
+                }
+            }
+            var N_ = B.Transpose() * P * B;
+            var x = N_.Inverse() * B.Transpose() * P * L;
+            for (int i = 0; i < t; ++i)
+            {
+                LevelingAdjust.LevelingPoints.FirstOrDefault(p => p.UKnownPointNum == i).Height += x[i, 0];
+            }
+            MessageBox.Show("解算成功!");
+            this.dataGridView1.Rows.Clear();
+            for (int i = 0; i < LevelingAdjust.LevelingPoints.Count; ++i)
+            {
+                int index = this.dataGridView1.Rows.Add();
+                this.dataGridView1.Rows[i].Cells[0].Value = index;
+                this.dataGridView1.Rows[i].Cells[1].Value = LevelingAdjust.LevelingPoints[i].PointName;
+                this.dataGridView1.Rows[i].Cells[2].Value = LevelingAdjust.LevelingPoints[i].Height;
+                this.dataGridView1.Rows[i].Cells[3].Value = LevelingAdjust.LevelingPoints[i].Nature;
+            }
+            var V = B * x - L;
+            var temp = V.Transpose() * P * V;
+            var sigma = Math.Sqrt(temp[0, 0] / (N - t))*1000;
+            var result = N_.Inverse() * sigma*sigma;
+            LevelingAdjust.StrAdjust.Clear();
+            LevelingAdjust.StrAdjust.Add( "--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("                                  高程网平差结果(常规)\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("                              已知高程点：" + LevelingAdjust.MKownPnumber + "\r\n");
+            LevelingAdjust.StrAdjust.Add("                              未知高程点：" + t + "\r\n");
+            LevelingAdjust.StrAdjust.Add("                              高差测段数：" + N + "\r\n");
+            LevelingAdjust.StrAdjust.Add("                                  自由度: " + (N - t) + "\r\n");
+            LevelingAdjust.StrAdjust.Add("                        验后单位权中误差: " + sigma.ToString("F2") + "(mm)\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("                                    实测高差数据统计\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("    序号        起点        终点        高差(m)       距离(km)         权\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            int ip = 0;
+            foreach (var value in LevelingAdjust.LevelingLines) {
+                LevelingAdjust.StrAdjust.Add($"    {value.LeveingLineNum}\t        {value.StartPoint.PointName}\t        {value.EndPoint.PointName}\t        {value.LeveingHeightDifferent}\t       {value.LeveingRoadLength}\t         {P[ip, ip].ToString("F2")}\r\n");
+                ip++;
+            }
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("                                   高程平差值及其精度\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("          序号           点号             高程(m)          中误差(mm)\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+            ip = 0;
+            foreach(var value in LevelingAdjust.LevelingPoints) {
+                if (value.UKnownPointNum != -1)
+                {
+                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum}\t       {value.PointName}\t             {value.Height.ToString("F3")}\t          {result[ip, ip].ToString("F3")}\r\n");
+                    ip++;
+                }
+                else {
+                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum}\t       {value.PointName}\t             {value.Height.ToString("F3")}\t          \r\n");
+                }
+            }
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
+        }
+
+        private void 严密平差报告ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox2.Text = "";
+            foreach(var value in LevelingAdjust.StrAdjust)
+            {
+                richTextBox2.Text += value;
             }
         }
     }
