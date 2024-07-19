@@ -3,17 +3,21 @@ using System.Diagnostics;
 using System.IO;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Leveling
 {
     public partial class Form1 : Form
     {
+
         //数据库连接字符串
         string? str;
         public Form1()
         {
             InitializeComponent();
         }
+        string? m_filename;
 
         private void 打开水准观测文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -26,6 +30,7 @@ namespace Leveling
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string file = dialog.FileName;
+                m_filename = file;
                 using StreamReader reader = new StreamReader(file);
                 string? line;
                 List<LevelingPoint> _points = new List<LevelingPoint>();
@@ -559,10 +564,10 @@ namespace Leveling
             }
             var V = B * x - L;
             var temp = V.Transpose() * P * V;
-            var sigma = Math.Sqrt(temp[0, 0] / (N - t))*1000;
-            var result = N_.Inverse() * sigma*sigma;
+            var sigma = Math.Sqrt(temp[0, 0] / (N - t)) * 1000;
+            var result = N_.Inverse() * sigma * sigma;
             LevelingAdjust.StrAdjust.Clear();
-            LevelingAdjust.StrAdjust.Add( "--------------------------------------------------------------------------------\r\n");
+            LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
             LevelingAdjust.StrAdjust.Add("                                  高程网平差结果(常规)\r\n");
             LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
             LevelingAdjust.StrAdjust.Add("                              已知高程点：" + LevelingAdjust.MKownPnumber + "\r\n");
@@ -576,8 +581,9 @@ namespace Leveling
             LevelingAdjust.StrAdjust.Add("    序号        起点        终点        高差(m)       距离(km)         权\r\n");
             LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
             int ip = 0;
-            foreach (var value in LevelingAdjust.LevelingLines) {
-                LevelingAdjust.StrAdjust.Add($"    {value.LeveingLineNum}\t        {value.StartPoint.PointName}\t        {value.EndPoint.PointName}\t        {value.LeveingHeightDifferent}\t       {value.LeveingRoadLength}\t         {P[ip, ip].ToString("F2")}\r\n");
+            foreach (var value in LevelingAdjust.LevelingLines)
+            {
+                LevelingAdjust.StrAdjust.Add($"    {value.LeveingLineNum,-6}      {value.StartPoint.PointName,-6}     {value.EndPoint.PointName,-6}      {value.LeveingHeightDifferent,-6}         {value.LeveingRoadLength,-6}        {P[ip, ip].ToString("F2")}\r\n");
                 ip++;
             }
             LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
@@ -586,14 +592,16 @@ namespace Leveling
             LevelingAdjust.StrAdjust.Add("          序号           点号             高程(m)          中误差(mm)\r\n");
             LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
             ip = 0;
-            foreach(var value in LevelingAdjust.LevelingPoints) {
+            foreach (var value in LevelingAdjust.LevelingPoints)
+            {
                 if (value.UKnownPointNum != -1)
                 {
-                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum}\t       {value.PointName}\t             {value.Height.ToString("F3")}\t          {result[ip, ip].ToString("F3")}\r\n");
+                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum,-6}        {value.PointName,-6}             {value.Height.ToString("F3"),-6}          {result[ip, ip].ToString("F3")}\r\n");
                     ip++;
                 }
-                else {
-                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum}\t       {value.PointName}\t             {value.Height.ToString("F3")}\t          \r\n");
+                else
+                {
+                    LevelingAdjust.StrAdjust.Add($"          {value.PointNum,-6}        {value.PointName,-6}             {value.Height.ToString("F3"),-6}          \r\n");
                 }
             }
             LevelingAdjust.StrAdjust.Add("--------------------------------------------------------------------------------\r\n");
@@ -602,10 +610,96 @@ namespace Leveling
         private void 严密平差报告ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox2.Text = "";
-            foreach(var value in LevelingAdjust.StrAdjust)
+            foreach (var value in LevelingAdjust.StrAdjust)
             {
                 richTextBox2.Text += value;
             }
+        }
+
+        private void 从数据库导出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            // 创建保存对话框
+            SaveFileDialog saveDataSend = new SaveFileDialog();
+            // Environment.SpecialFolder.MyDocuments 表示在我的文档中
+            saveDataSend.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);   // 获取文件路径
+            saveDataSend.Filter = "*.ou1|水准平差报告文件";   // 设置文件类型为文本文件
+            saveDataSend.DefaultExt = ".ou1";   // 默认文件的拓展名
+            saveDataSend.FileName = "Data.ou1";   // 文件默认名
+            if (saveDataSend.ShowDialog() == DialogResult.OK)   // 显示文件框，并且选择文件
+            {
+                string fName = saveDataSend.FileName;   // 获取文件名
+                                                        // 参数1：写入文件的文件名；参数2：写入文件的内容
+                                                        // 字符串"Hello"是文件保存的内容，可以根据需求进行修改
+                string txt = "";
+                foreach (var mystr in LevelingAdjust.StrAdjust)
+                {
+                    txt += mystr;
+                }
+                System.IO.File.WriteAllText(fName, txt);   // 向文件中写入内容
+            }
+            MessageBox.Show("导出成功!");
+        }
+
+        private void in1文件导入数据库ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SqlConnectionManager scm = new SqlConnectionManager(str);
+            if (!scm.TestConnection())
+            {
+                MessageBox.Show("数据库连接失败,请重新登录!");
+            }
+            string str1, str2;
+            str1 = "Insert into LevelingPoint values\r\n";
+            str2 = "Insert into LevelingLine  values\r\n";
+            Dictionary<int, string> pointID = new Dictionary<int, string>();
+            foreach (var value in LevelingAdjust.LevelingPoints)
+            {
+                int k;
+                if (value.Nature == LevelingPoint.PointNature.Known)
+                {
+                    k = 1;
+                }
+                else
+                {
+                    k = 0;
+                }
+                pointID.Add(value.PointNum, System.DateTime.Now.ToString("G") + $"No.{value.PointNum}");
+                str1 += $"(\'{pointID[value.PointNum]}\',\'{value.PointName}\'," +
+                    $"{value.Height},{k},\'{m_filename}\'),";
+            }
+            foreach (var value in LevelingAdjust.LevelingLines)
+            {
+                str2 += $"(\'{System.DateTime.Now.ToString("G") + $"No.{value.LeveingLineNum}"}\'," +
+                    $"\'{pointID[value.StartPoint.PointNum]}\'," +
+                    $"\'{pointID[value.EndPoint.PointNum]}\'," +
+                    $"{value.LeveingHeightDifferent},{value.LeveingRoadLength}),";
+            }
+            try
+            {
+                str1 = RemoveTrailingComma(str1);
+                str2 = RemoveTrailingComma(str2);
+                scm.ExecuteNonQuery(str1);
+                scm.ExecuteNonQuery(str2);
+                MessageBox.Show("导入成功!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("导入失败!");
+            }
+        }
+
+        static string RemoveTrailingComma(string str)
+        {
+            if (str.EndsWith(","))
+            {
+                return str.Substring(0, str.Length - 1);
+            }
+            return str;
+        }
+
+        private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("水准网平差测绘程序设计\n西南交通大学地球科学与工程学院\n2022114444\n夏靖皓\n917700519@qq.com\n");       
         }
     }
 }
