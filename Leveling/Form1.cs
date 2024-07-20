@@ -4,7 +4,6 @@ using System.IO;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Leveling
 {
@@ -332,7 +331,7 @@ namespace Leveling
         {
             SqlConnectionManager scm = new SqlConnectionManager(str);
             // 执行查询语句
-            string? str1 = "select * from" + $" {comboBox1.Text} " + richTextBox3.Text;
+            string? str1 = "select * from" + $" {comboBox1.Text} where " + richTextBox3.Text;
             using (SqlDataReader reader = scm.ExecuteReader(str1))
             {
                 if (comboBox1.Text == "LevelingPoint")
@@ -629,8 +628,6 @@ namespace Leveling
             if (saveDataSend.ShowDialog() == DialogResult.OK)   // 显示文件框，并且选择文件
             {
                 string fName = saveDataSend.FileName;   // 获取文件名
-                                                        // 参数1：写入文件的文件名；参数2：写入文件的内容
-                                                        // 字符串"Hello"是文件保存的内容，可以根据需求进行修改
                 string txt = "";
                 foreach (var mystr in LevelingAdjust.StrAdjust)
                 {

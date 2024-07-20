@@ -167,7 +167,7 @@
             // 
             平差报告ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 简易平差报告ToolStripMenuItem, 严密平差报告ToolStripMenuItem });
             平差报告ToolStripMenuItem.Name = "平差报告ToolStripMenuItem";
-            平差报告ToolStripMenuItem.Size = new Size(224, 26);
+            平差报告ToolStripMenuItem.Size = new Size(152, 26);
             平差报告ToolStripMenuItem.Text = "平差报告";
             // 
             // 简易平差报告ToolStripMenuItem
@@ -188,20 +188,20 @@
             // 
             导入数据库ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 数据库登录ToolStripMenuItem, in1文件导入数据库ToolStripMenuItem });
             导入数据库ToolStripMenuItem.Name = "导入数据库ToolStripMenuItem";
-            导入数据库ToolStripMenuItem.Size = new Size(224, 26);
+            导入数据库ToolStripMenuItem.Size = new Size(152, 26);
             导入数据库ToolStripMenuItem.Text = "数据库";
             // 
             // 数据库登录ToolStripMenuItem
             // 
             数据库登录ToolStripMenuItem.Name = "数据库登录ToolStripMenuItem";
-            数据库登录ToolStripMenuItem.Size = new Size(224, 26);
+            数据库登录ToolStripMenuItem.Size = new Size(167, 26);
             数据库登录ToolStripMenuItem.Text = "数据库登录";
             数据库登录ToolStripMenuItem.Click += 数据库登录ToolStripMenuItem_Click;
             // 
             // in1文件导入数据库ToolStripMenuItem
             // 
             in1文件导入数据库ToolStripMenuItem.Name = "in1文件导入数据库ToolStripMenuItem";
-            in1文件导入数据库ToolStripMenuItem.Size = new Size(224, 26);
+            in1文件导入数据库ToolStripMenuItem.Size = new Size(167, 26);
             in1文件导入数据库ToolStripMenuItem.Text = "导入数据库";
             in1文件导入数据库ToolStripMenuItem.Click += in1文件导入数据库ToolStripMenuItem_Click;
             // 
